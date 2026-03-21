@@ -18,7 +18,8 @@
 | Name | Description | Path |
 |------|-------------|------|
 | Commit | Generate a commit message from staged changes | `.agent/commands/commit.md` |
-| Plan | Auto-detect change tier and produce a structured plan | `.agent/commands/plan.md` |
+| Plan | Question, plan, and persist — produces a structured plan with questioning phase and saves to `.agent/plans/` | `.agent/commands/plan.md` |
+| Execute | Load a persisted plan and run it phase by phase with verification | `.agent/commands/execute.md` |
 | Review | Review changes against all domain skills with structured output | `.agent/commands/review.md` |
 
 ## Templates
@@ -27,4 +28,10 @@
 |------|-------------|------|
 | Commit Message | Conventional Commits message format | `.agent/templates/commit-msg.md` |
 | Skill | Standard structure for all skills | `.agent/templates/skill.md` |
-| Plan | Output contract for structured change plans | `.agent/templates/plan.md` |
+| Plan | Output contract for structured change plans with frontmatter schema | `.agent/templates/plan.md` |
+
+## Directories
+
+| Path | Purpose |
+|------|---------|
+| `.agent/plans/` | Persisted plan files (YAML frontmatter + markdown). Created by `/plan`, executed by `/execute`. |
