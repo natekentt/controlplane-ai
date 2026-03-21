@@ -30,6 +30,18 @@ Executable workflows triggered by user intent (e.g., `/commit`). May reference t
 ### Templates
 Output contracts — exact structure for generated artifacts. Referenced by commands and skills, not used directly.
 
+## Change Management
+
+All code changes are tiered by scope. Agents auto-detect the tier and apply the appropriate workflow:
+
+| Tier | Signals | Workflow |
+|------|---------|----------|
+| **Small** | 1 file, <50 lines | Execute directly |
+| **Medium** | 2–5 files, 50–300 lines | Brief plan → confirm → execute → verify |
+| **Large** | 6+ files, 300+ lines | Full plan → phased execution → verify each phase |
+
+Tier UP when in doubt. User can override. See `.agent/skills/change-management.md` for full rules.
+
 ## Git Standards
 
 - **Primary branch**: `main`
