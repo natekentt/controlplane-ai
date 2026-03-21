@@ -4,6 +4,25 @@ Output contract for structured change plans. Commands and skills that produce pl
 
 ---
 
+## Frontmatter
+
+Every persisted plan file begins with YAML frontmatter:
+
+```yaml
+---
+title: "<descriptive title>"
+status: draft | approved | executing | completed
+tier: Small | Medium | Large
+created: YYYY-MM-DD
+updated: YYYY-MM-DD
+tags: []
+---
+```
+
+**Status lifecycle**: `draft` → `approved` → `executing` → `completed`
+
+**File naming**: `.agent/plans/YYYY-MM-DD-<slug>.md` — date-prefixed, lowercase hyphenated slug derived from the title.
+
 ## Scope
 
 One sentence stating what this plan accomplishes and the detected change tier (Small / Medium / Large).

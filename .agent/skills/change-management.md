@@ -9,12 +9,12 @@ Applies whenever an agent is about to modify code. Ensures changes are scoped, p
 1. **Auto-detect tier** before making changes. Use the signals table below to classify scope.
 2. **Tier UP when in doubt.** A Medium change mis-classified as Small risks unbounded scope creep. The reverse only costs a brief plan.
 3. **Small changes execute directly.** No plan required. Commit when done.
-4. **Medium changes require a brief plan.** Produce a plan (see `.agent/templates/plan.md`), confirm with the user, then execute and verify.
-5. **Large changes require a full plan with phased execution.** Each phase is independently verifiable. Do not start the next phase until the current one is confirmed.
+4. **Medium changes require a persisted plan with questioning.** Run the questioning phase (scope, requirements, constraints), persist the plan to `.agent/plans/`, confirm with the user, then execute via `/execute` and verify.
+5. **Large changes require a persisted plan with deep questioning.** Run the full questioning phase across all six categories, persist the plan to `.agent/plans/`, and execute via `/execute` with phased verification. Each phase is independently verifiable. Do not start the next phase until the current one is confirmed.
 6. **STOP and re-tier if scope grows.** If a Small change touches a third file, it's now Medium. If a Medium change requires new architecture, it's now Large. Inform the user and re-plan.
 7. **User can override tier.** If the user says "just do it," treat as Small. If they say "plan this out," treat as Large. User intent overrides auto-detection.
 8. **Every tier ends with verification.** Small: confirm the change works. Medium: run relevant tests. Large: verify each phase before proceeding.
-9. **Plans are living documents.** If reality diverges from the plan during execution, update the plan before continuing — don't silently drift.
+9. **Plans are living documents.** If reality diverges from the plan during execution, update the persisted plan file in `.agent/plans/` before continuing — don't silently drift.
 10. **Commit at tier-appropriate granularity.** Small: one commit. Medium: one or two commits. Large: one commit per phase.
 
 ## Tier Signals
@@ -34,10 +34,10 @@ User: "Fix the typo in the README"
 Agent: (detects Small — 1 file, <5 lines) → fixes typo, commits.
 
 User: "Add input validation to the API"
-Agent: (detects Medium — 2-4 files, new validation layer) → produces brief plan, gets confirmation, implements, runs tests.
+Agent: (detects Medium — 2-4 files, new validation layer) → asks 3-5 clarifying questions → persists plan to .agent/plans/ → gets approval → user runs /execute.
 
 User: "Migrate from REST to GraphQL"
-Agent: (detects Large — 10+ files, new architecture) → produces full phased plan, reviews with user, executes phase-by-phase with verification.
+Agent: (detects Large — 10+ files, new architecture) → deep questioning across all 6 categories → persists full phased plan to .agent/plans/ → reviews with user → user runs /execute for phase-by-phase execution.
 ```
 
 ### Bad
@@ -51,6 +51,9 @@ Agent produces a Large plan for fixing a typo.
 
 Scope grows from 2 files to 8, agent keeps going without re-tiering.
 — Violates Rule 6: STOP and re-tier when scope grows.
+
+Agent generates a Medium plan inline in conversation without persisting it.
+— Violates Rule 4: Medium plans must be persisted to .agent/plans/.
 ```
 
 ## Exceptions
@@ -61,3 +64,5 @@ Scope grows from 2 files to 8, agent keeps going without re-tiering.
 ## References
 
 - [Plan Template](../templates/plan.md) — output format for Medium and Large plans
+- [Plan Command](../commands/plan.md) — questioning phase and plan persistence
+- [Execute Command](../commands/execute.md) — phase-by-phase execution of persisted plans
