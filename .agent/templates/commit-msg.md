@@ -1,0 +1,37 @@
+# Git Commit Template
+
+## Format
+<type>(<scope>): <subject>
+
+[optional body]
+
+[optional footer(s)]
+
+---
+
+## 1. Type (Required)
+Select the most appropriate intent:
+- **feat**: A new feature (correlates with MINOR in Semantic Versioning)
+- **fix**: A bug fix (correlates with PATCH in Semantic Versioning)
+- **docs**: Documentation only changes
+- **style**: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
+- **refactor**: A code change that neither fixes a bug nor adds a feature
+- **perf**: A code change that improves performance
+- **test**: Adding missing tests or correcting existing tests
+- **chore**: Changes to the build process or auxiliary tools and libraries (e.g. CI/CD, dependencies)
+
+## 2. Scope (Optional)
+A noun describing a section of the codebase surrounded by parenthesis (e.g., `(api)`, `(auth)`, `(mlops)`).
+
+## 3. Subject (Required)
+- Use the imperative, present tense: "change" not "changed" nor "changes"
+- Don't capitalize the first letter
+- No dot (.) at the end
+
+## 4. Body (Optional)
+- Justify the change. Contrast this with previous behavior and explain why this is better.
+- Use the imperative, present tense.
+
+## 5. Footer (Optional)
+- Reference issue IDs (e.g., `Fixes #123`)
+- List any **BREAKING CHANGES** here starting with `BREAKING CHANGE: `

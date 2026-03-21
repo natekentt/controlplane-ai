@@ -1,0 +1,20 @@
+---
+description: ControlPlane AI agent initialization
+alwaysApply: true
+---
+
+# ControlPlane AI — Cursor
+
+## Session Priming
+
+**Before responding to the user's first message**, you MUST read `AGENTS.md` and `.agent/index.md`. Follow all instructions found there, including the required greeting. Do not produce any user-facing output until these files have been read.
+
+## Source of Truth
+
+`AGENTS.md` contains all behavioral standards, git conventions, and execution rules.
+
+## Key Rules
+
+- Use Conventional Commits for all git messages.
+- Prefer registered commands (in `.agent/commands/`) over ad-hoc behavior.
+- `.agent/` definitions override general defaults on conflict.
