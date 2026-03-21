@@ -46,7 +46,7 @@ Tier UP when in doubt. User can override. See `.agent/skills/change-management.m
 
 Medium and Large changes follow a two-phase workflow that separates planning from execution:
 
-1. **`/plan`** — Question, plan, persist. Asks probing questions scaled to tier (0–2 for Small, 3–6 for Medium, 6–12+ for Large), generates a structured plan, and saves it to `.agent/plans/` with YAML frontmatter. Does not execute.
+1. **`/plan`** — Question, plan, persist. Asks probing questions scaled to tier (0–2 for Small, 3–6 for Medium, 6–12+ for Large), runs gap analysis and confidence scoring (all dimensions must be Medium+ to proceed), generates a structured plan, and saves it to `.agent/plans/` with YAML frontmatter. Does not execute.
 2. **`/execute`** — Load, run, verify. Picks up an approved plan from `.agent/plans/` and executes it phase by phase, verifying after each phase. Updates plan status through `draft` → `approved` → `executing` → `completed`.
 
 This separation ensures 95% of effort goes into planning (including deep questioning for alignment) and 5% into mechanical execution. See `.agent/commands/plan.md` and `.agent/commands/execute.md` for full details.
