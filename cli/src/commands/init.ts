@@ -85,7 +85,9 @@ export async function initCommand(targetDir: string, options?: InitOptions): Pro
   console.log("  ✓ .gitignore");
 
   console.log("\nControlPlane AI initialized successfully.");
-  console.log("Start a session with any AI agent (Claude Code, Cursor, Copilot) — the framework handles the rest.\n");
+  console.log("Start a session with any AI agent (Claude Code, Cursor, Copilot) — the framework handles the rest.");
+  console.log("The first session will scan your repo and generate a repo map and stack-specific conventions.");
+  console.log("This takes a minute or two but only happens once — every session after that starts instantly.\n");
 }
 
 async function promptConfirm(question: string): Promise<boolean> {

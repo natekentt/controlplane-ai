@@ -64,11 +64,9 @@ export const FRAMEWORK_FILES: FrameworkFile[] = [
   { path: "scripts/validate.sh", headerType: "shell" },
 ];
 
-export const MARKDOWN_HEADER =
-  "> **DO NOT EDIT** — Managed by ControlPlane AI. Changes will be overwritten on update.\n\n";
+export const MARKDOWN_HEADER = `> **DO NOT EDIT** — Managed by ControlPlane AI v${VERSION}. Changes will be overwritten on update.\n\n`;
 
-export const SHELL_HEADER =
-  "# DO NOT EDIT — Managed by ControlPlane AI. Changes will be overwritten on update.\n";
+export const SHELL_HEADER = `# DO NOT EDIT — Managed by ControlPlane AI v${VERSION}. Changes will be overwritten on update.\n`;
 
 export const MANIFEST_FILENAME = ".controlplane-manifest.json";
 

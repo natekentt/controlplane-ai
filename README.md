@@ -37,7 +37,7 @@ sudo apt-get install -y nodejs
 npx controlplane-ai init
 ```
 
-After init, start a session with any AI agent (Claude Code, Cursor, Copilot) — the framework handles the rest.
+After init, start a session with any AI agent (Claude Code, Cursor, Copilot) — the framework handles the rest. On the first session, ControlPlane AI will scan your repo and generate a repo map and stack-specific conventions tailored to your project. This bootstrap takes a minute or two but only happens once — every session after that starts instantly.
 
 **Other commands**
 ```bash

@@ -1,6 +1,6 @@
 {
   "name": "controlplane-ai",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "CLI for distributing the ControlPlane AI framework into any project",
   "type": "module",
   "main": "dist/index.js",

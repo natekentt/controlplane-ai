@@ -37,38 +37,11 @@ Output contracts — exact structure for generated artifacts. Referenced by comm
 
 ## Change Management
 
-All code changes are tiered by scope. Agents auto-detect the tier and apply the appropriate workflow:
+All code changes are tiered by scope. Before making any changes, read `.agent/skills/change-management.md` to determine the appropriate tier and workflow.
 
-| Tier | Signals | Workflow |
-|------|---------|----------|
-| **Small** | 1 file, <50 lines | Execute directly |
-| **Medium** | 2–5 files, 50–300 lines | Question → persist plan → approve → `/execute` → verify |
-| **Large** | 6+ files, 300+ lines | Deep question → persist plan → approve → `/execute` phase-by-phase → verify each |
+## Git
 
-Physical metrics set the baseline. Complexity signals (dense business logic, multiple data sources, security-sensitive code, novel patterns) override the tier **upward** regardless of file/line count. See `.agent/skills/change-management.md` for full rules.
-
-Tier UP when in doubt. User can override. See `.agent/skills/change-management.md` for full rules.
-
-## Plan & Execute Workflow
-
-Medium and Large changes follow a two-phase workflow that separates planning from execution:
-
-1. **`/plan`** — Question, plan, persist. Asks probing questions scaled to tier (0–2 for Small, 3–6 for Medium, 6–12+ for Large), runs gap analysis and confidence scoring (all dimensions must be Medium+ to proceed), generates a structured plan, and saves it to `.agent/plans/` with YAML frontmatter. Does not execute. Delegates codebase research to subagents during questioning.
-2. **`/execute`** — Load, run, verify. Picks up an approved plan from `.agent/plans/` and executes it phase by phase, verifying after each phase. Updates plan status through `draft` → `approved` → `executing` → `completed`. For best results, run `/execute` as the first message in a fresh session — execution quality degrades when the context window is filled with prior conversation.
-
-This separation ensures 95% of effort goes into planning (including deep questioning for alignment) and 5% into mechanical execution. See `.agent/commands/plan.md` and `.agent/commands/execute.md` for full details.
-
-## Git Standards
-
-- **Primary branch**: `main`
-- **Commit format**: Conventional Commits (`<type>(<scope>): <subject>`)
-- **Types**: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `chore`
-- **Scope**: Architectural layer (e.g., `api`, `auth`), not individual files
-- **Subject**: Imperative present tense, lowercase, no trailing period
-- **Branches**:
-  - Features: `feature/<username>/<description>`
-  - Bug fixes: `fix/<description>`
-- **History**: Reference last 5–10 commits for style continuity
+Follow `.agent/skills/git.md` for all commits and branching.
 
 ## Execution Rules
 
