@@ -26,6 +26,33 @@ Applies whenever an agent is about to modify code. Ensures changes are scoped, p
 | **Medium** | 2–5 | 50–300 | New feature within existing patterns, refactor of one module | Question → gap analysis → confidence gate → plan → approve → `/execute` → verify |
 | **Large** | 6+ | 300+ | New architecture, cross-cutting concern, multi-module refactor | Deep question → gap analysis → confidence gate → plan → approve → `/execute` phase-by-phase → verify each |
 
+### Decision Tree (Physical Metrics)
+
+Use this tree to determine the **baseline tier** from physical metrics alone. Evaluate both dimensions and apply the tie-breaking rule:
+
+1. File count ≤ 1 AND line delta < 50 → **Small**
+2. File count 2–5 AND line delta 50–300 → **Medium**
+3. File count 6+ OR line delta 300+ → **Large**
+4. **Tie-breaking**: When dimensions disagree (e.g., 1 file but 200 lines), take the **higher** tier from either dimension.
+
+The decision tree runs first and produces exactly one baseline tier. Complexity overrides are evaluated second.
+
+### Complexity Override (Scoring Rubric)
+
+Physical metrics set the baseline tier. Complexity signals can override the baseline **upward by one tier**. Each signal present scores +1 point:
+
+| Signal | +1 if present |
+|--------|---------------|
+| Dense business logic or domain rules baked into the implementation | +1 |
+| Multiple data sources with inconsistent schemas, deduplication, or complex joins | +1 |
+| Complex state transformations or pipeline orchestration | +1 |
+| Security-sensitive logic (auth, crypto, permissions) | +1 |
+| No existing codebase precedent to follow (novel pattern) | +1 |
+
+**Threshold**: Total ≥ 2 signals → tier up by one (Small→Medium, Medium→Large). A single signal is a warning but does not force a tier change.
+
+A 1-file notebook reading from 3 messy source tables with complex output logic scores +2 (multiple data sources, dense logic) — baseline Small tiers up to Medium. Apply the scoring rubric during auto-detection (Rule 1), not after.
+
 ## Examples
 
 ### Good

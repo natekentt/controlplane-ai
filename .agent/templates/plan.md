@@ -25,6 +25,7 @@ confidence_score:           # Medium+ tiers; optional for Small
   risk_identification: Low | Medium | High
   future_impact: Low | Medium | High
   overall: Low | Medium | High   # = min(all dimensions)
+confidence_overrides: []    # Optional; max 2. Each: { dimension, accepted_level, rationale }
 ---
 ```
 
@@ -57,6 +58,13 @@ Then <expected outcome>
 **Non-functional requirements** — quantified where possible (e.g., "response time < 200ms at p95").
 
 **Out of scope** — explicit list of what this plan does NOT cover.
+
+## Assumptions
+
+Explicit list of things the plan relies on that have not been independently verified. Surfaced during the planning phase and validated (or flagged) by the user. Confidence overrides are also recorded here with their rationale.
+
+- Assumption 1 — *validated* / *unvalidated* / *override accepted*
+- ...
 
 ## Approach
 

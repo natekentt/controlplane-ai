@@ -16,6 +16,7 @@ Applies when writing new features, fixing bugs, or refactoring code. Ensures cha
 8. **Keep test data minimal.** Use only the fields relevant to the behavior under test. Large fixture objects obscure what matters.
 9. **Don't test framework behavior.** Don't verify that your ORM saves to the database or that your HTTP library sends headers. Test *your* logic.
 10. **Treat test code as production code.** Apply the same quality standards — no duplication, clear naming, no dead tests. Refactor test helpers when patterns emerge.
+11. **Solicit edge cases from the user.** During test strategy planning (Medium+ tiers), explicitly ask the user to identify edge cases and failure scenarios from their domain knowledge. Agent-generated edge cases supplement but do not replace user-identified ones.
 
 ## Examples
 
