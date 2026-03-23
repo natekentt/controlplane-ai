@@ -110,7 +110,7 @@ Skills are passive domain knowledge that agents apply automatically when relevan
 | **Documentation** | WHY not WHAT, ADR format, examples over prose |
 | **Code Review** | Structured output, severity categories, always a verdict |
 
-Skills are loaded lazily — only when their domain is relevant to the current task. The `.agent/index.md` registry enables deterministic lookup instead of probabilistic directory scanning.
+Skills are loaded lazily — only when their domain is relevant to the current task. The `.agent/control-plane-index.md` registry enables deterministic lookup instead of probabilistic directory scanning.
 
 ### Commands
 
@@ -134,7 +134,7 @@ controlplane-ai/
 ├── .cursor/rules/controlplane.mdc         # Cursor adapter
 ├── .github/copilot-instructions.md        # GitHub Copilot adapter
 ├── .agent/
-│   ├── index.md                           # Resource registry (deterministic lookup)
+│   ├── control-plane-index.md              # Resource registry (deterministic lookup)
 │   ├── commands/
 │   │   ├── commit.md                      # /commit workflow
 │   │   ├── plan.md                        # /plan workflow
@@ -164,7 +164,7 @@ controlplane-ai/
 | Principle | Implementation |
 |-----------|---------------|
 | **Single source of truth** | `AGENTS.md` drives all tools. Adapters are 2–3 lines that point to it. |
-| **Deterministic discovery** | `.agent/index.md` replaces directory scanning. Agents look up resources by name. |
+| **Deterministic discovery** | `.agent/control-plane-index.md` replaces directory scanning. Agents look up resources by name. |
 | **Lazy loading** | Skills load on demand, not all at once. The index enables this. |
 | **Proportional process** | Tier detection applies the right amount of ceremony to every change. |
 | **Self-describing** | The skill meta-template means new skills follow the same contract. Add a file, register it in the index, done. |
@@ -178,19 +178,19 @@ controlplane-ai/
 
 1. Copy the `.agent/` directory, `AGENTS.md`, and the adapter files into your repo
 2. Customize skills for your team's conventions
-3. Register any new resources in `.agent/index.md`
+3. Register any new resources in `.agent/control-plane-index.md`
 4. Your AI agents now follow your rules
 
 ### Add a new skill
 
 1. Create a markdown file in `.agent/skills/` following the skill template
-2. Add a row to `.agent/index.md`
+2. Add a row to `.agent/control-plane-index.md`
 3. That's it — agents discover and apply it automatically
 
 ### Add a new command
 
 1. Create a markdown file in `.agent/commands/` defining the workflow
-2. Register it in `.agent/index.md`
+2. Register it in `.agent/control-plane-index.md`
 3. Agents can now execute it when triggered
 
 ---

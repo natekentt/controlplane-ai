@@ -38,7 +38,7 @@ Agent delegates codebase research to a subagent during /execute.
 
 ```
 Agent starts a new session.
-→ Reads AGENTS.md, .agent/index.md, and .agent/repo-map.md.
+→ Reads AGENTS.md, .agent/control-plane-index.md, and .agent/repo-map.md.
 → Has instant orientation on the codebase without any exploration.
 → Proceeds directly to the user's request.
 ```

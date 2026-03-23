@@ -9,24 +9,35 @@
    > ControlPlane AI planning mode is now active.
 
 1. **Understand the request.** Parse the user's description of what they want to change.
-2. **Preliminary tier estimate.** Apply the Change Management skill (`.agent/skills/change-management.md`) to make an initial classification. Announce the estimate and why.
-3. **Questioning phase.** Ask probing questions scaled to the estimated tier before generating the plan. See [Questioning Phase](#questioning-phase) below.
-4. **Gap analysis.** Run the [Gap Analysis Checklist](#gap-analysis-checklist) internally after questioning. Discovered gaps trigger targeted follow-up questions before proceeding.
-5. **Assumption surfacing.** Before scoring confidence, explicitly list all assumptions the plan relies on — things the agent believes to be true but has not confirmed with the user or verified in code. Present assumptions to the user for validation. Assumptions the user explicitly confirms or does not contest when presented are considered validated. Only assumptions the user flags as incorrect or uncertain remain unvalidated. Unvalidated assumptions lower the corresponding confidence dimension by one level (High → Medium, Medium → Low). Validated assumptions are recorded in the plan's **Assumptions** section (see Plan Template).
-6. **Confidence scoring.** Score each [confidence dimension](#confidence-scoring) based on information gathered. Apply [gate logic](#gate-logic) — any Low dimension blocks plan generation until resolved.
-7. **Finalize tier.** Re-evaluate the tier with full context from the questioning phase. If the tier changed, announce the update.
-8. **Generate plan.** Use the Plan Template (`.agent/templates/plan.md`) to produce a structured plan at the appropriate depth:
-   - **Small**: Scope + single-phase approach + File Manifest. No alternatives, risks, or new sections needed.
-   - **Medium**: Full plan with alternatives, acceptance criteria, test strategy, environment setup (if applicable), file manifest. 1–3 phases.
-   - **Large**: Full plan with all sections — acceptance criteria, decision records, environment setup, test strategy, CI/CD pipeline, production readiness, risks, future work, and comprehensive file manifest. Multiple independently-verifiable phases.
-9. **Persist to file.** Write the plan to `.agent/plans/YYYY-MM-DD-<slug>.md` with YAML frontmatter including confidence scores (status: `draft`). Announce the file path.
-10. **Present for approval.** For Medium+ plans with multiple phases, present the plan incrementally:
+2. **Brief check.** Check if `.agent/briefs/` contains any active briefs. If so:
+   - Load the most recent active brief.
+   - Present outstanding requirements to the user: *"There's an active project brief with these outstanding requirements: [list]. Are these still valid?"*
+   - If the user confirms, update the brief's `last_validated` date.
+   - If the user flags items as invalid or changed, update the brief accordingly.
+   - Check staleness: if 3+ plans derived from this brief have reached `completed` status since `last_validated`, flag the brief as potentially stale and prompt for full re-validation before proceeding.
+3. **Preliminary tier estimate.** Apply the Change Management skill (`.agent/skills/change-management.md`) to make an initial classification. Announce the estimate and why.
+4. **Questioning phase.** Ask probing questions scaled to the estimated tier before generating the plan. See [Questioning Phase](#questioning-phase) below.
+5. **Multi-plan scope detection.** During or after questioning, if the agent determines the scope exceeds a single plan (e.g., the user describes a project that would require 3+ phases spanning multiple concerns, or explicitly mentions future work that should be tracked):
+   - Suggest creating a project brief: *"This scope spans multiple plans. I recommend creating a project brief to track all requirements across plans. Should I create one?"*
+   - If the user agrees, create a brief in `.agent/briefs/YYYY-MM-DD-<slug>.md` following the Brief Template (`.agent/templates/brief.md`). Capture all stated requirements, including ones deferred to future plans.
+   - The current plan references the brief and addresses a subset of its requirements.
+   - If a brief already exists (from step 2), add any newly discovered requirements to it instead of creating a new one.
+6. **Gap analysis.** Run the [Gap Analysis Checklist](#gap-analysis-checklist) internally after questioning. Discovered gaps trigger targeted follow-up questions before proceeding.
+7. **Assumption surfacing.** Before scoring confidence, explicitly list all assumptions the plan relies on — things the agent believes to be true but has not confirmed with the user or verified in code. Present assumptions to the user for validation. Assumptions the user explicitly confirms or does not contest when presented are considered validated. Only assumptions the user flags as incorrect or uncertain remain unvalidated. Unvalidated assumptions lower the corresponding confidence dimension by one level (High → Medium, Medium → Low). Validated assumptions are recorded in the plan's **Assumptions** section (see Plan Template).
+8. **Confidence scoring.** Score each [confidence dimension](#confidence-scoring) based on information gathered. Apply [gate logic](#gate-logic) — any Low dimension blocks plan generation until resolved.
+9. **Finalize tier.** Re-evaluate the tier with full context from the questioning phase. If the tier changed, announce the update.
+10. **Generate plan.** Use the Plan Template (`.agent/templates/plan.md`) to produce a structured plan at the appropriate depth:
+    - **Small**: Scope + single-phase approach + File Manifest. No alternatives, risks, or new sections needed.
+    - **Medium**: Full plan with alternatives, acceptance criteria, test strategy, environment setup (if applicable), file manifest. 1–3 phases.
+    - **Large**: Full plan with all sections — acceptance criteria, decision records, environment setup, test strategy, CI/CD pipeline, production readiness, risks, future work, and comprehensive file manifest. Multiple independently-verifiable phases.
+11. **Persist to file.** Write the plan to `.agent/plans/YYYY-MM-DD-<slug>.md` with YAML frontmatter including confidence scores (status: `draft`). Announce the file path. If a brief exists, update the brief's Requirements list to mark newly-planned items as `planned` and add the plan to the brief's Plans table.
+12. **Present for approval.** For Medium+ plans with multiple phases, present the plan incrementally:
     - Show the Scope, Affected Areas, Acceptance Criteria, Assumptions, and Approach sections first.
     - Then present each phase one at a time, waiting for user acknowledgment before showing the next (e.g., "Ready for Phase 2?").
     - After the final phase, show the remaining sections (Risks, Future Work, File Manifest) and the confidence report.
     - Wait for user approval. On approval, update frontmatter status to `approved`.
     - **Small tier or single-phase plans**: Present the full plan at once — phased review is unnecessary.
-11. **Do not execute.** Direct the user to run `/execute` to begin implementation. Suggest the user run `/commit` to commit the plan artifact.
+13. **Do not execute.** Direct the user to run `/execute` to begin implementation. Suggest the user run `/commit` to commit the plan artifact.
 
 ## Questioning Phase
 

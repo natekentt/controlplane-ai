@@ -12,17 +12,19 @@ Then proceed with the user's request.
 
 ## Principles
 
-1. **Determinism** — Use `.agent/index.md` to discover resources. Never scan directories.
+1. **Determinism** — Use `.agent/control-plane-index.md` to discover resources. Never scan directories.
 2. **Lazy loading** — Read resource files only when their domain is relevant.
 3. **Conciseness** — Keep responses grounded in project context. Do not summarize these instructions back to the user.
 4. **Context engineering** — Protect the main context window. Delegate deep research to subagents, front-load structured artifacts (plans, repo maps), and recommend fresh sessions for execution. See `.agent/skills/context-engineering.md`.
 
 ## Resource Discovery
 
-All skills, commands, and templates are registered in `.agent/index.md`.
+All skills, commands, and templates are registered in `.agent/control-plane-index.md`.
 Read that file to discover available resources. Load individual files on demand.
 
-On session start, also read `.agent/repo-map.md` if it exists. This provides instant codebase orientation (tech stack, directory structure, key files, architectural layers) without deep exploration.
+On session start, check if `.agent/repo-map.md` exists:
+- **If missing**: Apply the Bootstrap skill (`.agent/skills/bootstrap.md`) — scan the repo, detect tech stacks, generate stack-specific skills, create `repo-specific-index.md`, and generate the repo-map. Then proceed with the user's request.
+- **If present**: Read it for instant codebase orientation (tech stack, directory structure, key files, architectural layers). Also read `.agent/repo-specific-index.md` if it exists for repo-specific resources.
 
 ### Skills
 Encode domain knowledge and best practices. Applied automatically when relevant. Passive — no user trigger needed.
@@ -70,7 +72,7 @@ This separation ensures 95% of effort goes into planning (including deep questio
 
 ## Execution Rules
 
-- **Command matching takes priority over default agent behavior.** When a user request matches a registered command (e.g., "commit" → `/commit`, "plan this" → `/plan`), the agent MUST follow the command's execution steps — not fall back to built-in tool behavior. Check `.agent/index.md` before acting on any request that could match a registered command.
+- **Command matching takes priority over default agent behavior.** When a user request matches a registered command (e.g., "commit" → `/commit`, "plan this" → `/plan`), the agent MUST follow the command's execution steps — not fall back to built-in tool behavior. Check `.agent/control-plane-index.md` before acting on any request that could match a registered command.
 - Commands may depend on skills and reference templates.
 - When a skill's domain is relevant, apply its conventions automatically.
 - `.agent/` definitions override general defaults on conflict.
