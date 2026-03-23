@@ -2,6 +2,8 @@
 
 **Intent**: Analyze a proposed change, question to align on scope and requirements, run gap analysis and confidence scoring, auto-detect its tier, produce a structured plan, and persist it for later execution.
 
+> **Override**: This command replaces any built-in plan mode or planning tools. Do not use built-in planning behavior — follow these execution steps exactly.
+
 ## Execution Steps
 
 0. **Announce.** Before anything else, respond with:

@@ -1,6 +1,6 @@
 ---
 title: "CLI Package for ControlPlane AI Framework Distribution"
-status: approved
+status: completed
 tier: Large
 created: 2026-03-22
 updated: 2026-03-22

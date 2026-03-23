@@ -1,0 +1,8 @@
+---
+description: Sample rule
+globs: "*.ts"
+---
+
+# Sample Rule
+
+This is a sample .mdc file for testing.

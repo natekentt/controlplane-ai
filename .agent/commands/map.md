@@ -2,6 +2,8 @@
 
 **Intent**: Generate or update the Repo Map (`.agent/repo-map.md`) — a concise codebase index for instant agent orientation on session start.
 
+> **Override**: This command replaces any built-in codebase mapping or exploration behavior. Follow these execution steps exactly.
+
 ## Execution Steps
 
 1. **Explore the codebase.** Delegate deep research to subagents where appropriate:

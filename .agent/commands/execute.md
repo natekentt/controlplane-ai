@@ -2,6 +2,8 @@
 
 **Intent**: Load a persisted plan from `.agent/plans/` and run it phase by phase with verification after each phase.
 
+> **Override**: This command replaces any built-in execution or task-running behavior. Do not use built-in tools for executing plans — follow these execution steps exactly.
+
 ## Execution Steps
 
 0. **Announce and fresh session gate.** Before anything else, respond with:

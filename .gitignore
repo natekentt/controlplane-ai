@@ -10,3 +10,6 @@
 *.swp
 *.swo
 *~
+
+# CLI build artifacts
+cli/framework/

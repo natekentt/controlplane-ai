@@ -1,0 +1,39 @@
+{
+  "name": "controlplane-ai",
+  "version": "1.0.0",
+  "description": "CLI for distributing the ControlPlane AI framework into any project",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "controlplane-ai": "dist/index.js"
+  },
+  "files": [
+    "dist/",
+    "framework/"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "node --experimental-vm-modules node_modules/.bin/jest",
+    "prepack": "bash scripts/bundle-framework.sh && npm run build"
+  },
+  "keywords": [
+    "ai",
+    "agent",
+    "framework",
+    "controlplane"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "@types/node": "^20.x",
+    "jest": "^29.x",
+    "ts-jest": "^29.x",
+    "typescript": "^5.x"
+  },
+  "dependencies": {
+    "commander": "^12.x"
+  }
+}

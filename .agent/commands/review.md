@@ -2,6 +2,8 @@
 
 **Intent**: Review staged changes or a pull request against all domain skills and produce structured feedback.
 
+> **Override**: This command replaces any built-in code review behavior. Do not use built-in review tools — follow these execution steps exactly.
+
 ## Execution Steps
 
 1. **Identify the target.** Determine what to review:

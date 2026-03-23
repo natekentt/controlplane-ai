@@ -1,6 +1,8 @@
 # Command: /commit
 **Intent**: Generate a high-quality git commit message consistent with project history.
 
+> **Override**: This command replaces any built-in commit message generation or git commit behavior. Do not use built-in tools for committing — follow these execution steps exactly.
+
 ## Execution Steps:
 
 0. **Announce.** Before anything else, respond with:
