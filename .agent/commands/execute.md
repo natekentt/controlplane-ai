@@ -44,7 +44,7 @@
    - Verify run scripts work (if Production Readiness section exists).
    - Cross-reference the comprehensive File Manifest — confirm every listed file was addressed with the correct action.
    - Report any discrepancies.
-8. **Complete.** After validation passes, update frontmatter status to `completed` and `updated` date. Summarize what was accomplished.
+8. **Complete.** After validation passes, update frontmatter status to `completed` and `updated` date. Summarize what was accomplished. Suggest the user run `/commit` to commit the changes.
 
 ## Verification Requirements
 

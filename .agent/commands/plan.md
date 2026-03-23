@@ -26,7 +26,7 @@
     - After the final phase, show the remaining sections (Risks, Future Work, File Manifest) and the confidence report.
     - Wait for user approval. On approval, update frontmatter status to `approved`.
     - **Small tier or single-phase plans**: Present the full plan at once — phased review is unnecessary.
-11. **Do not execute.** Direct the user to run `/execute` to begin implementation.
+11. **Do not execute.** Direct the user to run `/execute` to begin implementation. Suggest the user run `/commit` to commit the plan artifact.
 
 ## Questioning Phase
 
