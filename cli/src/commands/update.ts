@@ -2,7 +2,7 @@
 
 import { readFile } from "node:fs/promises";
 import path from "node:path";
-import { FRAMEWORK_FILES } from "../constants.js";
+import { FRAMEWORK_FILES, BANNER, VERSION } from "../constants.js";
 import { copyFrameworkFile, getFrameworkDir } from "../lib/files.js";
 import { computeHash, readManifest, writeManifest, type ManifestEntry } from "../lib/hash.js";
 import { ensureGitignore } from "../lib/gitignore.js";
@@ -15,7 +15,7 @@ export async function updateCommand(targetDir: string, options?: UpdateOptions):
   const resolvedTarget = path.resolve(targetDir);
   const frameworkDir = options?.frameworkDir ?? getFrameworkDir();
 
-  console.log("ControlPlane AI\n");
+  console.log(`${BANNER}\n`);
 
   // Verify manifest exists (init must have been run)
   try {
@@ -48,7 +48,7 @@ export async function updateCommand(targetDir: string, options?: UpdateOptions):
   }
 
   // Regenerate manifest
-  await writeManifest(resolvedTarget, manifestFiles, "1.0.0");
+  await writeManifest(resolvedTarget, manifestFiles, VERSION);
   console.log("  ✓ .agent/.controlplane-manifest.json");
 
   // Ensure .gitignore

@@ -4,6 +4,53 @@
 
 ControlPlane AI is a behavioral framework that gives engineering teams a single, declarative control layer over every AI coding agent — Claude Code, GitHub Copilot, Cursor, and any tool that reads project-level instructions. Instead of ad-hoc prompting and inconsistent AI output, you get structured workflows, enforced standards, and a plan-then-execute discipline that scales from a one-line fix to a multi-phase architectural change.
 
+## Installation
+
+Requires [Node.js](https://nodejs.org/) 18 or later.
+
+**macOS**
+```bash
+# Install Node.js (if not already installed)
+brew install node
+
+# Initialize ControlPlane AI in your project
+npx controlplane-ai init
+```
+
+**Windows**
+```powershell
+# Install Node.js (if not already installed)
+# Download from https://nodejs.org/ or use winget:
+winget install OpenJS.NodeJS.LTS
+
+# Initialize ControlPlane AI in your project
+npx controlplane-ai init
+```
+
+**Linux**
+```bash
+# Install Node.js (if not already installed)
+curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+# Initialize ControlPlane AI in your project
+npx controlplane-ai init
+```
+
+After init, start a session with any AI agent (Claude Code, Cursor, Copilot) — the framework handles the rest.
+
+**Other commands**
+```bash
+npx controlplane-ai validate    # Check for local modifications to framework files
+npx controlplane-ai update      # Update framework files to latest version
+npx controlplane-ai uninstall   # Remove all framework files from your project
+```
+
+**Updating to the latest version**
+```bash
+npx controlplane-ai@latest update
+```
+
 ---
 
 ## The Problem

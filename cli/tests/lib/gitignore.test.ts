@@ -6,6 +6,7 @@ import {
   GITIGNORE_START_MARKER,
   GITIGNORE_END_MARKER,
   GITIGNORE_ENTRIES,
+  FRAMEWORK_FILES,
 } from "../../src/constants.js";
 
 describe("ensureGitignore", () => {
@@ -63,6 +64,15 @@ describe("ensureGitignore", () => {
     expect(content).not.toContain("old-entry");
     for (const entry of GITIGNORE_ENTRIES) {
       expect(content).toContain(entry);
+    }
+  });
+
+  it("includes all framework files in gitignore entries", async () => {
+    await ensureGitignore(tmpDir);
+
+    const content = await readFile(path.join(tmpDir, ".gitignore"), "utf8");
+    for (const file of FRAMEWORK_FILES) {
+      expect(content).toContain(file.path);
     }
   });
 

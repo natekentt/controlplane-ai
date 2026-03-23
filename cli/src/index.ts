@@ -1,23 +1,20 @@
 #!/usr/bin/env node
 // ControlPlane AI — CLI for structured, supervised AI workflows
 
-import { readFileSync } from "node:fs";
-import { fileURLToPath } from "node:url";
-import path from "node:path";
 import { Command } from "commander";
+import { VERSION } from "./constants.js";
 import { initCommand } from "./commands/init.js";
 import { validateCommand } from "./commands/validate.js";
 import { updateCommand } from "./commands/update.js";
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const pkg = JSON.parse(readFileSync(path.resolve(__dirname, "..", "package.json"), "utf8"));
+import { uninstallCommand } from "./commands/uninstall.js";
+import { checkForUpdate } from "./lib/version-check.js";
 
 const program = new Command();
 
 program
   .name("controlplane-ai")
   .description("CLI for distributing the ControlPlane AI framework into any project")
-  .version(pkg.version);
+  .version(VERSION);
 
 program
   .command("init")
@@ -42,5 +39,17 @@ program
   .action(async (directory: string) => {
     await updateCommand(directory);
   });
+
+program
+  .command("uninstall")
+  .description("Remove all ControlPlane AI framework files from a project")
+  .argument("[directory]", "Target project directory", ".")
+  .action(async (directory: string) => {
+    await uninstallCommand(directory);
+  });
+
+program.hook("postAction", async () => {
+  await checkForUpdate();
+});
 
 program.parse();

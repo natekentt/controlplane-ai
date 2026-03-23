@@ -3,7 +3,7 @@
 import { readFile, mkdir, writeFile, access } from "node:fs/promises";
 import path from "node:path";
 import { createInterface } from "node:readline";
-import { FRAMEWORK_FILES, GITKEEP_DIRS } from "../constants.js";
+import { FRAMEWORK_FILES, GITKEEP_DIRS, BANNER, VERSION } from "../constants.js";
 import { copyFrameworkFile, getFrameworkDir } from "../lib/files.js";
 import { computeHash, writeManifest, type ManifestEntry } from "../lib/hash.js";
 import { ensureGitignore } from "../lib/gitignore.js";
@@ -18,7 +18,7 @@ export async function initCommand(targetDir: string, options?: InitOptions): Pro
   const frameworkDir = options?.frameworkDir ?? getFrameworkDir();
   const confirm = options?.confirm ?? (() => promptConfirm("Proceed with overwriting these files?"));
 
-  console.log("ControlPlane AI\n");
+  console.log(`${BANNER}\n`);
 
   // Check for existing framework files
   const existingFiles: string[] = [];
@@ -77,7 +77,7 @@ export async function initCommand(targetDir: string, options?: InitOptions): Pro
   }
 
   // Write manifest
-  await writeManifest(resolvedTarget, manifestFiles, "1.0.0");
+  await writeManifest(resolvedTarget, manifestFiles, VERSION);
   console.log("  ✓ .agent/.controlplane-manifest.json");
 
   // Ensure .gitignore
@@ -85,6 +85,7 @@ export async function initCommand(targetDir: string, options?: InitOptions): Pro
   console.log("  ✓ .gitignore");
 
   console.log("\nControlPlane AI initialized successfully.");
+  console.log("Start a session with any AI agent (Claude Code, Cursor, Copilot) — the framework handles the rest.\n");
 }
 
 async function promptConfirm(question: string): Promise<boolean> {

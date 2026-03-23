@@ -2,13 +2,13 @@
 
 import { readFile } from "node:fs/promises";
 import path from "node:path";
-import { FRAMEWORK_FILES } from "../constants.js";
+import { FRAMEWORK_FILES, BANNER } from "../constants.js";
 import { computeHash, readManifest, stripHeader } from "../lib/hash.js";
 
 export async function validateCommand(targetDir: string): Promise<void> {
   const resolvedTarget = path.resolve(targetDir);
 
-  console.log("ControlPlane AI\n");
+  console.log(`${BANNER}\n`);
 
   let manifest;
   try {

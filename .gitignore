@@ -13,3 +13,7 @@
 
 # CLI build artifacts
 cli/framework/
+
+# random
+npm-key.txt
+.agent/thoughts.txt

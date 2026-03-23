@@ -1,5 +1,15 @@
 // ControlPlane AI — Framework constants and file registry
 
+import { readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
+import path from "node:path";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const pkg = JSON.parse(readFileSync(path.resolve(__dirname, "..", "package.json"), "utf8"));
+
+export const VERSION: string = pkg.version;
+export const BANNER = `ControlPlane AI (v${VERSION})`;
+
 export type HeaderType = "markdown" | "mdc" | "shell" | "none";
 
 export interface FrameworkFile {
@@ -65,10 +75,18 @@ export const MANIFEST_FILENAME = ".controlplane-manifest.json";
 export const GITIGNORE_START_MARKER = "# ControlPlane AI — DO NOT EDIT this section";
 export const GITIGNORE_END_MARKER = "# End ControlPlane AI";
 
+// Derive gitignore entries from the framework file list + generated files.
+// Every framework file managed by the CLI should be gitignored in the target project.
 export const GITIGNORE_ENTRIES = [
+  // Framework files (managed by controlplane-ai CLI)
+  ...FRAMEWORK_FILES.map((f) => f.path),
+
+  // Generated/repo-specific files
   ".agent/.controlplane-manifest.json",
   ".agent/repo-map.md",
   ".agent/repo-specific-index.md",
+
+  // Working directories
   ".agent/plans/",
   ".agent/briefs/",
 ];
