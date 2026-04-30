@@ -35,5 +35,13 @@
   },
   "dependencies": {
     "commander": "^12.x"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/natekentt/controlplane-ai.git"
+  },
+  "bugs": {
+    "url": "https://github.com/natekentt/controlplane-ai/issues"
+  },
+  "homepage": "https://github.com/natekentt/controlplane-ai#readme"
 }
